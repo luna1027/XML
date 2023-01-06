@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,29 @@
     <title>Fetch</title>
     <link rel="shortcut icon" href="#" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <style>
+        li {
+            border: 1px solid lightblue;
+            margin-bottom: -1px;
+            padding: 5px 10px;
+        }
+
+        li:hover {
+            background-color: lightskyblue;
+            color: #fff;
+            font-weight: 700;
+        }
+    </style>
 </head>
+
 <body>
     <h1 class="header">Fetch</h1>
     <div class="title"></div>
     <h4></h4>
     <ul></ul>
-    
+
 </body>
+
 </html>
 <script>
     /********************************************************
@@ -25,11 +41,30 @@
     ********************************************************/
 
     //建立FETCH請求及實質內容
+    fetch('https://kktix.com/events.json', {
+        method: 'get'
+    }).then(function (res) {
+        //建立回呼函式(call back function)來處理回應時的各項行為
+        return res.json();
+    }).then(function (data) {
+        console.log(data);
+        let str = "";
+        data.entry.forEach((item) => {
+            str += `<li>${item.summary}</li>`;
+            console.log(str);
+        });
+        let ul = document.querySelector('ul');
+        ul.innerHTML = str;
+    }).catch(function (error) {
+        //建立錯誤處理
+        ul.innerHTML = 'error';
+    })
+
+    let array = new Array;
 
 
-    //建立回呼函式(call back function)來處理回應時的各項行為
 
 
-    //建立錯誤處理
 
-  </script>
+
+</script>
